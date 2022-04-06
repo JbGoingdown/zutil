@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>cn.zm1001.util</groupId>
+        <artifactId>zutil</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>crypto</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>cn.zm1001.util</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+
+        <!-- commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
+
+        <!-- bcprov-jdk -->
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+        </dependency>
+    </dependencies>
+</project>
