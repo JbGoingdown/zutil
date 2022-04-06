@@ -22,7 +22,7 @@
         <zutil.version>1.0.0</zutil.version>
         <lombok.version>1.18.20</lombok.version>
         <slf.version>1.7.21</slf.version>
-        <logback.version>1.1.7</logback.version>
+        <logback.version>1.2.11</logback.version>
         <mail.version>1.4.7</mail.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-codec.version>1.15</commons-codec.version>
@@ -75,13 +75,6 @@
                 <version>${logback.version}</version>
             </dependency>
 
-            <!-- mail -->
-            <dependency>
-                <groupId>javax.mail</groupId>
-                <artifactId>mail</artifactId>
-                <version>${mail.version}</version>
-            </dependency>
-
             <!-- commons-lang3 -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -101,6 +94,13 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcprov-jdk15on</artifactId>
                 <version>${bcprov-jdk.version}</version>
+            </dependency>
+
+            <!-- mail -->
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>${mail.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
