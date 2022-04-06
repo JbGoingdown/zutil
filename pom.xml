@@ -10,12 +10,15 @@
     <version>1.0.0</version>
     <modules>
         <module>common</module>
+        <module>crypto</module>
     </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+
+        <zutil.version>1.0.0</zutil.version>
         <lombok.version>1.18.20</lombok.version>
         <slf.version>1.7.21</slf.version>
         <logback.version>1.1.7</logback.version>
@@ -46,6 +49,12 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>cn.zm1001.util</groupId>
+                <artifactId>common</artifactId>
+                <version>${zutil.version}</version>
+            </dependency>
+
             <!-- log -->
             <dependency>
                 <groupId>org.slf4j</groupId>
