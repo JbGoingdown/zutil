@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 控制台输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %level %thread %X{traceId} #${log_app_uk}# #%c{0}# %m %n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- logback日志文件配置 -->
+    <appender name="logbackAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_path}/log-${log_app_uk}/${log_file_name}</file>
+        <append>true</append>
+
+        <!-- 以日期+文件大小切割 方式 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_path}/log-${log_app_uk}/%d{yyyy-MM-dd}-%i-${log_file_name}
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${log_max_file_size}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>${log_max_history}</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS,GMT+8} %level %thread %X{traceId} #${log_app_uk}# #%c{0}# %m %n</pattern>
+            <charset class="java.nio.charset.Charset">UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <root>
+        <level value="${log_level}"/>
+        <appender-ref ref="stdout" />
+        <appender-ref ref="logbackAppender" />
+    </root>
+</configuration>
