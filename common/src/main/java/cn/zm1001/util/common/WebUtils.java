@@ -14,7 +14,7 @@ import java.util.Objects;
  * @Author Dongd_Zhou
  */
 @Slf4j
-public class WebAddressUtils {
+public class WebUtils {
     /** IP地址查询 */
     private static final String IP_URL = "http://whois.pconline.com.cn/ipJson.jsp";
     /** 未知地址 */
