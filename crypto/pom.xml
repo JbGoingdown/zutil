@@ -12,15 +12,16 @@
     <artifactId>crypto</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>cn.zm1001.util</groupId>
-            <artifactId>common</artifactId>
-        </dependency>
-
         <!-- commons-codec -->
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
+        </dependency>
+
+        <!-- commons-lang3 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <!-- bcprov-jdk -->

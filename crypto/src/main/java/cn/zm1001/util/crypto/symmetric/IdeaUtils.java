@@ -1,8 +1,8 @@
 package cn.zm1001.util.crypto.symmetric;
 
-import cn.zm1001.util.common.asserts.ParamAssert;
 import cn.zm1001.util.crypto.exception.CryptoException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.Validate;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
@@ -69,8 +69,8 @@ public class IdeaUtils {
      * @return 密文
      */
     public static String encrypt(String secretKey, String plaintext) {
-        ParamAssert.isNotEmpty(secretKey, "IDEA secret key is required");
-        ParamAssert.isNotEmpty(plaintext, "plaintext is required");
+        Validate.notEmpty(secretKey, "IDEA secret key is required");
+        Validate.notEmpty(plaintext, "plaintext is required");
         try {
             // 加入BouncyCastleProvider支持
             Security.addProvider(new BouncyCastleProvider());
@@ -94,8 +94,8 @@ public class IdeaUtils {
      * @return 明文，解密结果
      */
     public static String decrypt(String secretKey, String ciphertext) {
-        ParamAssert.isNotEmpty(secretKey, "IDEA secret key is required");
-        ParamAssert.isNotEmpty(ciphertext, "ciphertext is required");
+        Validate.notEmpty(secretKey, "IDEA secret key is required");
+        Validate.notEmpty(ciphertext, "ciphertext is required");
         try {
             // 加入BouncyCastleProvider支持
             Security.addProvider(new BouncyCastleProvider());

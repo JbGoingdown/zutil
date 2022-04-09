@@ -1,16 +1,12 @@
 package cn.zm1001.util.crypto.asymmetric;
 
-import cn.zm1001.util.common.asserts.ParamAssert;
 import cn.zm1001.util.crypto.exception.CryptoException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.Validate;
 
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
@@ -79,8 +75,8 @@ public class RsaUtils {
      * @return 密文Base64加密字符串
      */
     public static String encryptByPrivate(String privateKey, String plaintext) {
-        ParamAssert.isNotEmpty(privateKey, "RSA private key is required");
-        ParamAssert.isNotEmpty(plaintext, "plaintext is required");
+        Validate.notEmpty(privateKey, "RSA private key is required");
+        Validate.notEmpty(plaintext, "plaintext is required");
         try {
             PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKey));
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
@@ -103,8 +99,8 @@ public class RsaUtils {
      * @return 明文，解密结果
      */
     public static String decryptByPublic(String publicKey, String ciphertext) {
-        ParamAssert.isNotEmpty(publicKey, "RSA public key is required");
-        ParamAssert.isNotEmpty(ciphertext, "ciphertext is required");
+        Validate.notEmpty(publicKey, "RSA public key is required");
+        Validate.notEmpty(ciphertext, "ciphertext is required");
         try {
             X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKey));
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
@@ -127,8 +123,8 @@ public class RsaUtils {
      * @return 密文Base64加密字符串
      */
     public static String encryptByPublic(String publicKey, String plaintext) {
-        ParamAssert.isNotEmpty(publicKey, "RSA public key is required");
-        ParamAssert.isNotEmpty(plaintext, "plaintext is required");
+        Validate.notEmpty(publicKey, "RSA public key is required");
+        Validate.notEmpty(plaintext, "plaintext is required");
         try {
             X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKey));
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);
@@ -151,8 +147,8 @@ public class RsaUtils {
      * @return 明文
      */
     public static String decryptByPrivate(String privateKey, String ciphertext) {
-        ParamAssert.isNotEmpty(privateKey, "RSA private key is required");
-        ParamAssert.isNotEmpty(ciphertext, "ciphertext is required");
+        Validate.notEmpty(privateKey, "RSA private key is required");
+        Validate.notEmpty(ciphertext, "ciphertext is required");
         try {
             PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKey));
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM);

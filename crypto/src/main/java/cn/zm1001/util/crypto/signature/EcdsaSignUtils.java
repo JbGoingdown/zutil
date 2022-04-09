@@ -1,17 +1,12 @@
 package cn.zm1001.util.crypto.signature;
 
-import cn.zm1001.util.common.asserts.ParamAssert;
 import cn.zm1001.util.crypto.exception.CryptoException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.Validate;
 
 import java.nio.charset.StandardCharsets;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
+import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
@@ -70,8 +65,8 @@ public class EcdsaSignUtils {
      * @return 签名结果
      */
     public static String sign(String privateKey, String content) {
-        ParamAssert.isNotEmpty(privateKey, "ECDSA sign private key is required");
-        ParamAssert.isNotEmpty(content, "content to be signed is required");
+        Validate.notEmpty(privateKey, "ECDSA sign private key is required");
+        Validate.notEmpty(content, "content to be signed is required");
         try {
             PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(privateKey));
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM_ECDSA);
@@ -95,9 +90,9 @@ public class EcdsaSignUtils {
      * @return 校验结果，true：验证通过，false：验证不通过
      */
     public static boolean verify(String publicKey, String content, String sign) {
-        ParamAssert.isNotEmpty(publicKey, "ECDSA sign public key is required");
-        ParamAssert.isNotEmpty(content, "content to be signed is required");
-        ParamAssert.isNotEmpty(sign, "sign to be verified is required");
+        Validate.notEmpty(publicKey, "ECDSA sign public key is required");
+        Validate.notEmpty(content, "content to be signed is required");
+        Validate.notEmpty(sign, "sign to be verified is required");
         try {
             X509EncodedKeySpec x509EncodedKeySpec = new X509EncodedKeySpec(Base64.decodeBase64(publicKey));
             KeyFactory keyFactory = KeyFactory.getInstance(ALGORITHM_ECDSA);

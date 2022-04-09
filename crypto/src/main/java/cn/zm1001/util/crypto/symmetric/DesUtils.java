@@ -1,9 +1,9 @@
 package cn.zm1001.util.crypto.symmetric;
 
-import cn.zm1001.util.common.asserts.ParamAssert;
 import cn.zm1001.util.crypto.exception.CryptoException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.lang3.Validate;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -74,8 +74,8 @@ public class DesUtils {
      * @return 密文
      */
     public static String encrypt(String secretKey, String plaintext) {
-        ParamAssert.isNotEmpty(secretKey, "DES secret key is required");
-        ParamAssert.isNotEmpty(plaintext, "plaintext is required");
+        Validate.notEmpty(secretKey, "DES secret key is required");
+        Validate.notEmpty(plaintext, "plaintext is required");
         try {
             // 生成密钥
             Key convertSecretKey = convertSecretKey(secretKey);
@@ -97,8 +97,8 @@ public class DesUtils {
      * @return 明文，解密结果
      */
     public static String decrypt(String secretKey, String ciphertext) {
-        ParamAssert.isNotEmpty(secretKey, "DES secret key is required");
-        ParamAssert.isNotEmpty(ciphertext, "ciphertext is required");
+        Validate.notEmpty(secretKey, "DES secret key is required");
+        Validate.notEmpty(ciphertext, "ciphertext is required");
         try {
             // 生成密钥
             Key convertSecretKey = convertSecretKey(secretKey);

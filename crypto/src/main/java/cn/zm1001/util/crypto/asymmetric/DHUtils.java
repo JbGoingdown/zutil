@@ -1,8 +1,8 @@
 package cn.zm1001.util.crypto.asymmetric;
 
-import cn.zm1001.util.common.asserts.ParamAssert;
 import cn.zm1001.util.crypto.exception.CryptoException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.Validate;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyAgreement;
@@ -112,8 +112,8 @@ public class DHUtils {
      * @return 密文Base64加密字符串
      */
     public static String encrypt(SecretKey desKey, String plaintext) {
-        ParamAssert.isNotNull(desKey, "dh secret key is required");
-        ParamAssert.isNotEmpty(plaintext, "plaintext is required");
+        Validate.notNull(desKey, "dh secret key is required");
+        Validate.notEmpty(plaintext, "plaintext is required");
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM_DES);
             cipher.init(Cipher.ENCRYPT_MODE, desKey);
@@ -132,8 +132,8 @@ public class DHUtils {
      * @return 明文
      */
     public static String decrypt(SecretKey desKey, String ciphertext) {
-        ParamAssert.isNotNull(desKey, "dh secret key is required");
-        ParamAssert.isNotEmpty(ciphertext, "ciphertext is required");
+        Validate.notNull(desKey, "dh secret key is required");
+        Validate.notEmpty(ciphertext, "ciphertext is required");
         try {
             Cipher cipher = Cipher.getInstance(ALGORITHM_DES);
             cipher.init(Cipher.DECRYPT_MODE, desKey);

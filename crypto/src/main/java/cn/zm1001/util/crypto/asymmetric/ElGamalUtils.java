@@ -1,22 +1,14 @@
 package cn.zm1001.util.crypto.asymmetric;
 
-import cn.zm1001.util.common.asserts.ParamAssert;
 import cn.zm1001.util.crypto.exception.CryptoException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.lang3.Validate;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.DHParameterSpec;
 import java.nio.charset.StandardCharsets;
-import java.security.AlgorithmParameterGenerator;
-import java.security.AlgorithmParameters;
-import java.security.KeyFactory;
-import java.security.KeyPair;
-import java.security.KeyPairGenerator;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.SecureRandom;
-import java.security.Security;
+import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
@@ -81,8 +73,8 @@ public class ElGamalUtils {
      * @return 密文Base64加密字符串
      */
     public static String encrypt(String publicKey, String plaintext) {
-        ParamAssert.isNotEmpty(publicKey, "Elgamal public key is required");
-        ParamAssert.isNotEmpty(plaintext, "plaintext is required");
+        Validate.notEmpty(publicKey, "Elgamal public key is required");
+        Validate.notEmpty(plaintext, "plaintext is required");
         try {
             // 加入对BouncyCastle支持
             Security.addProvider(new BouncyCastleProvider());
@@ -110,8 +102,8 @@ public class ElGamalUtils {
      * @return 明文
      */
     public static String decrypt(String privateKey, String ciphertext) {
-        ParamAssert.isNotEmpty(privateKey, "Elgamal private key is required");
-        ParamAssert.isNotEmpty(ciphertext, "ciphertext is required");
+        Validate.notEmpty(privateKey, "Elgamal private key is required");
+        Validate.notEmpty(ciphertext, "ciphertext is required");
         try {
             // 加入对BouncyCastle支持
             Security.addProvider(new BouncyCastleProvider());
