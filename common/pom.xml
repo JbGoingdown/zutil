@@ -12,10 +12,10 @@
     <artifactId>common</artifactId>
 
     <dependencies>
-        <!-- servlet包 -->
+        <!-- log -->
         <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
         </dependency>
 
         <!-- fastjson -->
@@ -36,10 +36,16 @@
             <artifactId>commons-collections4</artifactId>
         </dependency>
 
-        <!-- log -->
+        <!-- commons-io -->
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+
+        <!-- servlet包 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
         </dependency>
     </dependencies>
 
