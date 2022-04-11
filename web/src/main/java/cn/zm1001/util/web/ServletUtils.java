@@ -95,14 +95,14 @@ public class ServletUtils {
      * @param response 渲染对象
      * @param string   待渲染的字符串
      */
-    public static void renderString(HttpServletResponse response, String string) {
+    public static void write(HttpServletResponse response, String string) {
         try {
             response.setStatus(HttpStatus.SUCCESS);
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             response.getWriter().print(string);
         } catch (IOException e) {
-            log.error("#renderString# ## ## write back msg exception: {}", string, e);
+            log.error("#write# ## ## write back msg exception: {}", string, e);
         }
     }
 
