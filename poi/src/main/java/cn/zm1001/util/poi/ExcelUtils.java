@@ -4,11 +4,8 @@ import cn.zm1001.util.common.DateUtils;
 import cn.zm1001.util.common.ObjectUtils;
 import cn.zm1001.util.common.ReflectUtils;
 import cn.zm1001.util.common.StringUtils;
-import cn.zm1001.util.common.id.IdUtils;
-import cn.zm1001.util.common.response.AjaxResult;
 import cn.zm1001.util.poi.annotation.Excel;
 import cn.zm1001.util.poi.annotation.Excels;
-import cn.zm1001.util.poi.exception.ExcelException;
 import cn.zm1001.util.poi.handler.ExcelHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
@@ -16,10 +13,12 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.ss.util.CellRangeAddressList;
 import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
-import org.apache.poi.xssf.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFDataValidation;
 
 import javax.servlet.http.HttpServletResponse;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -34,6 +33,8 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class ExcelUtils<T> {
+    /** Excel Response Content-Type */
+    private static final String EXCEL_CONTENT_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
     /** 数字格式 */
     private static final DecimalFormat DOUBLE_FORMAT = new DecimalFormat("######0.00");
     /** Excel sheet最大行数，默认65536 */
@@ -80,7 +81,7 @@ public class ExcelUtils<T> {
     }
 
     /**
-     * 对Excel表单默认第一行开始转换成对象(无表头)
+     * 对Excel表单默认第一行开始转换成对象(第0行为标题)
      *
      * @param is 输入流
      * @return 结果集
@@ -90,10 +91,10 @@ public class ExcelUtils<T> {
     }
 
     /**
-     * 对Excel表单从第titleNum行开始转换成List
+     * 对Excel表单从第(titleNum + 1)行开始转换成List
      *
      * @param is       输入流
-     * @param titleNum 标题所在的行
+     * @param titleNum 标题占用的行数
      * @return 结果集
      */
     public List<T> importExcel(InputStream is, int titleNum) throws Exception {
@@ -105,7 +106,7 @@ public class ExcelUtils<T> {
      *
      * @param is        输入流
      * @param sheetName 表格索引名
-     * @param titleNum  标题所在的行
+     * @param titleNum  标题占用的行数
      * @return 结果集
      */
     public List<T> importExcel(InputStream is, String sheetName, int titleNum) throws Exception {
@@ -126,7 +127,7 @@ public class ExcelUtils<T> {
 
         // 存放Excel标题和列的序号.
         Map<String, Integer> cellMap = new HashMap<>();
-        // 获取表头
+        // 获取表头（行索引从0开始，第titleNum行为表头）
         Row heard = sheet.getRow(titleNum);
         for (int i = 0, cells = heard.getPhysicalNumberOfCells(); i < cells; i++) {
             Cell cell = heard.getCell(i);
@@ -359,30 +360,6 @@ public class ExcelUtils<T> {
     /**
      * 对list数据源将其里面的数据导出到Excel表单
      *
-     * @param list      导出数据集合
-     * @param sheetName 工作表的名称
-     * @return 结果
-     */
-    public AjaxResult exportExcel(List<T> list, String sheetName) {
-        return exportExcel(list, sheetName, StringUtils.EMPTY);
-    }
-
-    /**
-     * 对list数据源将其里面的数据导出到Excel表单
-     *
-     * @param list      导出数据集合
-     * @param sheetName 工作表的名称
-     * @param title     标题
-     * @return 结果
-     */
-    public AjaxResult exportExcel(List<T> list, String sheetName, String title) {
-        this.init(list, sheetName, title, Excel.Type.EXPORT);
-        return exportExcel();
-    }
-
-    /**
-     * 对list数据源将其里面的数据导出到Excel表单
-     *
      * @param response  返回数据
      * @param list      导出数据集合
      * @param sheetName 工作表的名称
@@ -402,33 +379,10 @@ public class ExcelUtils<T> {
      * @throws IOException IO异常
      */
     public void exportExcel(HttpServletResponse response, List<T> list, String sheetName, String title) throws IOException {
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setContentType(EXCEL_CONTENT_TYPE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         this.init(list, sheetName, title, Excel.Type.EXPORT);
         exportExcel(response.getOutputStream());
-    }
-
-    /**
-     * 导出数据模板到Excel表单
-     *
-     * @param sheetName 工作表的名称
-     * @return 结果
-     */
-    public AjaxResult exportTemplateExcel(String sheetName) {
-        return exportTemplateExcel(sheetName, StringUtils.EMPTY);
-    }
-
-    /**
-     * 导出数据模板到Excel表单
-     *
-     * @param sheetName 工作表的名称
-     * @param title     标题
-     * @return 结果
-     */
-    public AjaxResult exportTemplateExcel(String sheetName, String title) {
-        // 导入数据需要的模板
-        this.init(null, sheetName, title, Excel.Type.IMPORT);
-        return exportExcel();
     }
 
     /**
@@ -449,7 +403,7 @@ public class ExcelUtils<T> {
      * @return 结果
      */
     public void exportTemplateExcel(HttpServletResponse response, String sheetName, String title) throws IOException {
-        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setContentType(EXCEL_CONTENT_TYPE);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         // 导出数据需要的模板
         this.init(null, sheetName, title, Excel.Type.IMPORT);
@@ -557,7 +511,7 @@ public class ExcelUtils<T> {
     }
 
     /**
-     * 创建excel第一行标题
+     * 创建excel第一行标题(表头上方部分)
      */
     private void createTitle() {
         if (StringUtils.isNotEmpty(title)) {
@@ -590,49 +544,6 @@ public class ExcelUtils<T> {
             maxHeight = maxHeight > excel.height() ? maxHeight : excel.height();
         }
         return (short) (maxHeight * 20);
-    }
-
-    /**
-     * 写入数据到Excel表单，并下载到服务本地
-     *
-     * @return 结果
-     */
-    private AjaxResult exportExcel() {
-        OutputStream out = null;
-        try {
-            writeSheet();
-            String filename = encodingFilename(sheetName);
-            out = new FileOutputStream(getAbsoluteFile(filename));
-            wb.write(out);
-            return AjaxResult.success(filename);
-        } catch (Exception e) {
-            log.error("导出Excel异常{}", e.getMessage());
-            throw new ExcelException("导出Excel失败，请联系网站管理员！");
-        } finally {
-            IOUtils.closeQuietly(wb);
-            IOUtils.closeQuietly(out);
-        }
-    }
-
-    /**
-     * 编码文件名
-     */
-    private String encodingFilename(String filename) {
-        return IdUtils.fastSimpleUUID() + "_" + filename + ".xlsx";
-    }
-
-    /**
-     * 获取下载路径
-     *
-     * @param filename 文件名称
-     */
-    private String getAbsoluteFile(String filename) {
-        File desc = new File(filename);
-        if (!desc.getParentFile().exists()) {
-            //noinspection ResultOfMethodCallIgnored
-            desc.getParentFile().mkdirs();
-        }
-        return filename;
     }
 
     /**
