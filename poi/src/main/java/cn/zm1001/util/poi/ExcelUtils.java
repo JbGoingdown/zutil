@@ -81,7 +81,7 @@ public class ExcelUtils<T> {
     }
 
     /**
-     * 对Excel表单默认第一行开始转换成对象(第0行为标题)
+     * 对Excel表单默认第一行开始转换成对象(第0行为表头)
      *
      * @param is 输入流
      * @return 结果集
@@ -92,6 +92,8 @@ public class ExcelUtils<T> {
 
     /**
      * 对Excel表单从第(titleNum + 1)行开始转换成List
+     * 前titleNum-1行为标题
+     * 第titleNum行为表头
      *
      * @param is       输入流
      * @param titleNum 标题占用的行数
@@ -102,7 +104,9 @@ public class ExcelUtils<T> {
     }
 
     /**
-     * 对Excel表单从第titleNum行开始转换成List
+     * 对Excel表单从第(titleNum + 1)行开始转换成List
+     * 前titleNum-1行为标题
+     * 第titleNum行为表头
      *
      * @param is        输入流
      * @param sheetName 表格索引名
@@ -371,6 +375,7 @@ public class ExcelUtils<T> {
 
     /**
      * 对list数据源将其里面的数据导出到excel表单
+     * 先标题后表头再数据
      *
      * @param response  返回数据
      * @param list      导出数据集合
@@ -397,6 +402,7 @@ public class ExcelUtils<T> {
 
     /**
      * 导出数据模板到Excel表单
+     * 先标题后表头
      *
      * @param sheetName 工作表的名称
      * @param title     标题
