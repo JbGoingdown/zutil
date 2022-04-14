@@ -1,6 +1,5 @@
 package cn.zm1001.util.common.id;
 
-import com.sun.istack.internal.NotNull;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -109,7 +108,6 @@ public class IdWorker {
         return System.currentTimeMillis();
     }
 
-    @NotNull
     public static String getId() {
         IdWorker worker = new IdWorker(1, 1, 1);
         return String.valueOf(worker.nextId());
