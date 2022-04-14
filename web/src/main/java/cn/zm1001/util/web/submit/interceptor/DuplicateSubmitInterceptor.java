@@ -1,9 +1,9 @@
 package cn.zm1001.util.web.submit.interceptor;
 
+import cn.zm1001.util.common.JacksonUtil;
 import cn.zm1001.util.common.response.AjaxResult;
 import cn.zm1001.util.web.ServletUtils;
 import cn.zm1001.util.web.submit.annotation.DuplicateSubmit;
-import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -25,7 +25,7 @@ public abstract class DuplicateSubmitInterceptor implements HandlerInterceptor {
             if (null != annotation) {
                 if (isRepeatSubmit(request, annotation)) {
                     AjaxResult ajaxResult = AjaxResult.error(annotation.message());
-                    ServletUtils.write(response, JSONObject.toJSONString(ajaxResult));
+                    ServletUtils.write(response, JacksonUtil.toJson(ajaxResult));
                     return false;
                 }
             }

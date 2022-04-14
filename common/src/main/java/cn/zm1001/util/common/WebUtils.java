@@ -1,7 +1,7 @@
 package cn.zm1001.util.common;
 
-import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.MapUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.nio.charset.Charset;
@@ -42,9 +42,9 @@ public class WebUtils {
                 log.error("#getRealAddressByIP# #rsp# #{}# 获取地理位置异常", ip);
                 return UNKNOWN;
             }
-            JSONObject obj = JSONObject.parseObject(rspStr);
-            String region = obj.getString("pro");
-            String city = obj.getString("city");
+            Map<String, String> addressMap = JacksonUtil.toMap(rspStr);
+            String region = MapUtils.getString(addressMap, "pro");
+            String city = MapUtils.getString(addressMap, "city");
             return String.format("%s %s", region, city);
         } catch (Exception e) {
             log.error("#getRealAddressByIP# #rsp# #{}# 获取地理位置异常", ip, e);
