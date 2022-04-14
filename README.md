@@ -2,28 +2,29 @@
 
 ## 1.0.0
 ### common
-|工具类 			|说明 			|
+|工具类 			  |说明 			    |
 |-----------------|-----------------|
 |EscapeUtils  	  |转义或反转义		|
-|HtmlFilter   	  |请求特殊字符过滤	   |
-|IdUtils 	  	  |ID生成工具类		 |
-|IdWorker 	  	  |雪花算法 		 |
+|HtmlFilter   	  |请求特殊字符过滤	|
+|IdUtils 	  	  |ID生成工具类		|
+|IdWorker 	  	  |雪花算法 		    |
+|NanoIdUtils      |NanoId工具类      |
 |AjaxResult   	  |请求响应结果 		|
 |SqlUtil 	  	  |SQL特殊字符校验 	|
-|DateUtils 	  	  |日期工具类 		 |
-|HttpUtils 	  	  |HTTP工具类		  |
-|ObjectUtils  	  |对象处理工具类 	    |
-|ReflectUtils 	  |反射工具类 		 |
-|StringUtils  	  |字符串处理工具类    |
-|WebUtils	  	  |网络地址处理类      |
+|DateUtils 	  	  |日期工具类 		|
+|HttpUtils 	  	  |HTTP工具类		|
+|ObjectUtils  	  |对象处理工具类 	|
+|ReflectUtils 	  |反射工具类 		|
+|StringUtils  	  |字符串处理工具类   |
+|WebUtils	  	  |网络地址处理类     |
 
 ### crypto
 |工具类 			|说明 			|
 |-----------------|-----------------|
-|DesUtils   	  |Des 加解密 		  |
-|Des3Utils 	  	  |3Des 加解密		  |
+|DesUtils   	  |Des 加解密 		|
+|Des3Utils 	  	  |3Des 加解密		|
 |AesUtils	  	  |AES 加解密        |
-|PbeUtils	  	  |PBE 加解密 		  |
+|PbeUtils	  	  |PBE 加解密 		|
 |IdeaUtils	 	  |IDEA 加解密       |
 |DHUtils	  	  |DH 加解密         |
 |RsaUtils 	  	  |RSA 加解密        |
@@ -55,17 +56,17 @@ log_env=test
 ```
 
 ### mail
-|工具类 			|说明 			|
+|工具类 			  |说明 			    |
 |-----------------|-----------------|
 |MailUtils   	  |邮件工具类         |
 
 ### POI
-|工具类 			|说明 			|
+|工具类 			  |说明 			    |
 |-----------------|-----------------|
 |ExcelUtils   	  |Excel导入导出     |
 
 ### WEB
-|工具类 			|说明 			|
+|工具类 			  |说明 			    |
 |-----------------|-----------------|
 |ServletUtils     |Servlet工具类     |
 |UrlUtils         |URL工具类         |
@@ -73,7 +74,7 @@ log_env=test
 |MessageUtils     |i18n国际化工具类   |
 |CaptchaGenerator |验证码生成器       |
 |XssFilter		  |XSS过滤器         |
-|RepeatableFilter |请求可重复读取      |
+|RepeatableFilter |请求可重复读取     |
 |DuplicateSubmitInterceptor |重复提交拦截器 |
 |BaseController	  |Controller通用数据处理 |
 
