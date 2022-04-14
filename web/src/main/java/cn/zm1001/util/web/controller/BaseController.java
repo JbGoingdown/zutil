@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Desc Controller层通用数据处理
@@ -66,12 +65,12 @@ public class BaseController {
     /**
      * 响应请求分页数据
      */
-    protected PageData getDataTable(List<?> list) {
-        PageData rspData = new PageData();
+    protected <T> PageData<T> getDataTable(List<T> list) {
+        PageData<T> rspData = new PageData<>();
         rspData.setCode(HttpStatus.SUCCESS);
         rspData.setMsg("查询成功");
         rspData.setRows(list);
-        rspData.setTotal(new PageInfo(list).getTotal());
+        rspData.setTotal(new PageInfo<>(list).getTotal());
         return rspData;
     }
 

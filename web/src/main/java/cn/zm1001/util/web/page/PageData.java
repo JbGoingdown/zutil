@@ -12,7 +12,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class PageData implements Serializable {
+public class PageData<T> implements Serializable {
     private static final long serialVersionUID = 7950943551093754654L;
 
     /** 消息状态码 */
@@ -25,5 +25,5 @@ public class PageData implements Serializable {
     private long total;
 
     /** 列表数据 */
-    private List<?> rows;
+    private List<T> rows;
 }
