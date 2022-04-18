@@ -1,5 +1,7 @@
 package cn.zm1001.util.common;
 
+import cn.zm1001.util.common.exception.DateException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,6 +30,10 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
             YYYY_MM_DD_HH_MM_SS, YYYY_MM_DD_HH_MM, YYYY_MM_DD, YYYY_MM,
             "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm", "yyyy/MM/dd", "yyyy/MM",
             "yyyy.MM.dd HH:mm:ss", "yyyy.MM.dd HH:mm", "yyyy.MM.dd", "yyyy.MM"};
+
+    private DateUtils() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * 获取当前Date型日期
@@ -115,7 +121,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         try {
             return new SimpleDateFormat(format).parse(dateStr);
         } catch (ParseException e) {
-            throw new RuntimeException(e);
+            throw new DateException(e);
         }
     }
 
@@ -136,7 +142,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         try {
             return parseDate(obj.toString(), parsePatterns);
         } catch (ParseException e) {
-            return null;
+            throw new DateException(e);
         }
     }
 
