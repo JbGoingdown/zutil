@@ -4,7 +4,7 @@ import cn.zm1001.util.common.DateUtils;
 import cn.zm1001.util.common.ObjectUtils;
 import cn.zm1001.util.common.StringUtils;
 import cn.zm1001.util.common.constant.HttpStatus;
-import cn.zm1001.util.common.response.AjaxResult;
+import cn.zm1001.util.common.response.R;
 import cn.zm1001.util.common.sql.SqlUtil;
 import cn.zm1001.util.web.page.PageData;
 import cn.zm1001.util.web.page.PageDomain;
@@ -77,48 +77,38 @@ public class BaseController {
     /**
      * 返回成功
      */
-    public AjaxResult success() {
-        return AjaxResult.success();
+    public R success() {
+        return R.success();
     }
 
     /**
      * 返回失败消息
      */
-    public AjaxResult error() {
-        return AjaxResult.error();
+    public R error() {
+        return R.error();
     }
 
     /**
      * 返回成功消息
      */
-    public AjaxResult success(String message) {
-        return AjaxResult.success(message);
+    public R success(String message) {
+        return R.success(message);
     }
 
     /**
      * 返回失败消息
      */
-    public AjaxResult error(String message) {
-        return AjaxResult.error(message);
+    public R error(String message) {
+        return R.error(message);
     }
 
     /**
      * 响应返回结果
      *
-     * @param rows 影响行数
+     * @param result 结果成功或失败
      * @return 操作结果
      */
-    protected AjaxResult toAjax(int rows) {
-        return rows > 0 ? success() : error();
-    }
-
-    /**
-     * 响应返回结果
-     *
-     * @param result 结果
-     * @return 操作结果
-     */
-    protected AjaxResult toAjax(boolean result) {
+    protected R toAjax(boolean result) {
         return result ? success() : error();
     }
 
