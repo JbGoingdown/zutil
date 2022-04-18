@@ -13,19 +13,17 @@ import java.util.concurrent.ThreadLocalRandom;
  * @Author Dongd_Zhou
  */
 public class NanoIdUtils {
-    public static final char[] DEFAULT_ALPHABET = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
+    private static final char[] DEFAULT_ALPHABET = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     /** 默认返回字符串长度 */
-    public static final int DEFAULT_SIZE = 21;
+    private static final int DEFAULT_SIZE = 21;
 
-    /**
-     * 静态工厂生成url友好，伪随机生成的NanoId字符串
-     * 默认使用安全随机数
-     * 默认生成的NanoId字符串长度21
-     */
-    public static String randomNanoId() {
-        return secureNanoId();
+    private NanoIdUtils() {
+        throw new UnsupportedOperationException();
     }
 
+    /**
+     * 单例
+     */
     private static class Holder {
         static final SecureRandom secureRandom = new SecureRandom();
     }
@@ -42,7 +40,7 @@ public class NanoIdUtils {
 
     /**
      * 使用加密的本地线程伪随机数生成器生成该 NanoId。
-     *
+     * 默认生成的NanoId字符串长度21
      * @return 随机生成的 {@code NanoId}
      */
     public static String fastNanoId() {
@@ -51,10 +49,10 @@ public class NanoIdUtils {
 
     /**
      * 使用加密的强伪随机数生成器生成该 NanoId。
-     *
+     * 默认生成的NanoId字符串长度21
      * @return 随机生成的 {@code NanoId}
      */
-    public static String secureNanoId() {
+    public static String randomNanoId() {
         return randomNanoId(Holder.secureRandom, DEFAULT_ALPHABET, DEFAULT_SIZE);
     }
 

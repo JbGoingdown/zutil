@@ -5,6 +5,10 @@ package cn.zm1001.util.common.id;
  * @Author Dongd_Zhou
  */
 public class IdUtils {
+    private IdUtils() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * 获取随机UUID
      *
@@ -39,5 +43,23 @@ public class IdUtils {
      */
     public static String fastSimpleUUID() {
         return UUID.fastUUID().toString(true);
+    }
+
+    /**
+     * 获取随机NanoId
+     *
+     * @return 随机21位NanoId
+     */
+    public static String randomNanoId() {
+        return NanoIdUtils.randomNanoId();
+    }
+
+    /**
+     * 获取随机NanoId，使用性能更好的ThreadLocalRandom生成NanoId
+     *
+     * @return 21位随机NanoId
+     */
+    public static String fastNanoId() {
+        return NanoIdUtils.fastNanoId();
     }
 }
