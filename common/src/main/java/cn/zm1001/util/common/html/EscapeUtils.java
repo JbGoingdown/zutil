@@ -22,6 +22,10 @@ public class EscapeUtils {
         TEXT['>'] = "&#62;".toCharArray(); // 大于号
     }
 
+    private EscapeUtils() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * 转义文本中的HTML字符为安全的字符
      *
