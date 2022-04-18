@@ -6,6 +6,7 @@ import cn.zm1001.util.common.ReflectUtils;
 import cn.zm1001.util.common.StringUtils;
 import cn.zm1001.util.poi.annotation.Excel;
 import cn.zm1001.util.poi.annotation.Excels;
+import cn.zm1001.util.poi.exception.ExcelException;
 import cn.zm1001.util.poi.handler.ExcelHandlerAdapter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.*;
@@ -119,7 +120,7 @@ public class ExcelUtils<T> {
         // 若指定sheet名,则取指定sheet中的内容 否则默认指向第1个sheet
         Sheet sheet = StringUtils.isNotEmpty(sheetName) ? wb.getSheet(sheetName) : wb.getSheetAt(0);
         if (null == sheet) {
-            throw new IOException("文件sheet不存在");
+            throw new ExcelException("文件sheet不存在");
         }
         List<T> list = new ArrayList<>();
         // 获取最后一个非空行的行下标，比如总行数为n，则返回的为n-1
@@ -356,7 +357,7 @@ public class ExcelUtils<T> {
             Method formatMethod = excel.handler().getMethod("format", Object.class, String[].class);
             value = formatMethod.invoke(instance, value, excel.args());
         } catch (Exception e) {
-            log.error("不能格式化数据 " + excel.handler(), e);
+            log.error("#dataFormatHandlerAdapter# ## ## 不能格式化数据 {}", excel.handler(), e);
         }
         return ObjectUtils.toStr(value);
     }
@@ -560,7 +561,7 @@ public class ExcelUtils<T> {
             writeSheet();
             wb.write(out);
         } catch (Exception e) {
-            log.error("导出Excel异常{}", e.getMessage());
+            log.error("#exportExcel# ## ## 导出Excel异常", e);
         } finally {
             IOUtils.closeQuietly(wb);
             IOUtils.closeQuietly(out);
@@ -747,7 +748,7 @@ public class ExcelUtils<T> {
                 addStatisticsData(column, ObjectUtils.toStr(value), attr);
             }
         } catch (Exception e) {
-            log.error("导出Excel失败", e);
+            log.error("#addCell# ## ##导出Excel失败", e);
         }
     }
 
