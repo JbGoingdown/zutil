@@ -15,6 +15,9 @@ import java.util.List;
  * @Author Dongd_Zhou
  */
 public class UrlUtils {
+    private UrlUtils() {
+        throw new UnsupportedOperationException();
+    }
 
     /**
      * 查找指定URL是否匹配指定任一地址
