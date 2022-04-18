@@ -4,6 +4,7 @@ import org.apache.commons.lang3.Validate;
 
 import java.security.SecureRandom;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @Desc NanoId工具类
@@ -12,17 +13,49 @@ import java.util.Random;
  * @Author Dongd_Zhou
  */
 public class NanoIdUtils {
-    public static final SecureRandom DEFAULT_NUMBER_GENERATOR = new SecureRandom();
     public static final char[] DEFAULT_ALPHABET = "_-0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray();
     /** 默认返回字符串长度 */
     public static final int DEFAULT_SIZE = 21;
 
     /**
      * 静态工厂生成url友好，伪随机生成的NanoId字符串
+     * 默认使用安全随机数
      * 默认生成的NanoId字符串长度21
      */
     public static String randomNanoId() {
-        return randomNanoId(DEFAULT_NUMBER_GENERATOR, DEFAULT_ALPHABET, DEFAULT_SIZE);
+        return secureNanoId();
+    }
+
+    private static class Holder {
+        static final SecureRandom secureRandom = new SecureRandom();
+    }
+
+    /**
+     * 获取随机数生成器对象
+     * ThreadLocalRandom是JDK 7之后提供并发产生随机数，能够解决多个线程发生的竞争争夺。
+     *
+     * @return {@link ThreadLocalRandom}
+     */
+    public static ThreadLocalRandom getRandom() {
+        return ThreadLocalRandom.current();
+    }
+
+    /**
+     * 使用加密的本地线程伪随机数生成器生成该 NanoId。
+     *
+     * @return 随机生成的 {@code NanoId}
+     */
+    public static String fastNanoId() {
+        return randomNanoId(getRandom(), DEFAULT_ALPHABET, DEFAULT_SIZE);
+    }
+
+    /**
+     * 使用加密的强伪随机数生成器生成该 NanoId。
+     *
+     * @return 随机生成的 {@code NanoId}
+     */
+    public static String secureNanoId() {
+        return randomNanoId(Holder.secureRandom, DEFAULT_ALPHABET, DEFAULT_SIZE);
     }
 
     /**
