@@ -4,6 +4,10 @@ import cn.zm1001.util.common.StringUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.util.AntPathMatcher;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -44,5 +48,55 @@ public class UrlUtils {
     public static boolean isMatch(String url, String pattern) {
         AntPathMatcher matcher = new AntPathMatcher();
         return matcher.match(pattern, url);
+    }
+
+    /**
+     * Url地址编码
+     *
+     * @param url URL地址
+     * @return 编码后地址
+     */
+    public static String encode(String url) {
+        return encode(url, StandardCharsets.UTF_8.name());
+    }
+
+    /**
+     * Url地址编码
+     *
+     * @param url     URL地址
+     * @param charset 字符集
+     * @return 编码后地址
+     */
+    public static String encode(String url, String charset) {
+        try {
+            return URLEncoder.encode(url, charset);
+        } catch (UnsupportedEncodingException ignored) {
+        }
+        return url;
+    }
+
+    /**
+     * Url地址解码
+     *
+     * @param url URL地址
+     * @return 解码后地址
+     */
+    public static String decode(String url) {
+        return decode(url, StandardCharsets.UTF_8.name());
+    }
+
+    /**
+     * Url地址解码
+     *
+     * @param url     URL地址
+     * @param charset 字符集
+     * @return 解码后地址
+     */
+    public static String decode(String url, String charset) {
+        try {
+            return URLDecoder.decode(url, charset);
+        } catch (UnsupportedEncodingException ignored) {
+        }
+        return url;
     }
 }
