@@ -8,6 +8,10 @@ import org.springframework.context.i18n.LocaleContextHolder;
  * @Author Dongd_Zhou
  */
 public class MessageUtils {
+    private MessageUtils() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * 根据消息键和参数 获取消息 委托给spring messageSource
      *

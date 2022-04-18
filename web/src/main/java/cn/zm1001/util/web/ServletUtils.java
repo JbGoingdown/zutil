@@ -21,6 +21,10 @@ import java.nio.charset.StandardCharsets;
  */
 @Slf4j
 public class ServletUtils {
+    private ServletUtils() {
+        throw new UnsupportedOperationException();
+    }
+
     public static ServletRequestAttributes getRequestAttributes() {
         RequestAttributes attributes = RequestContextHolder.getRequestAttributes();
         return (ServletRequestAttributes) attributes;
