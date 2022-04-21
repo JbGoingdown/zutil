@@ -1,6 +1,6 @@
 package cn.zm1001.util.web.request.wrapper;
 
-import cn.zm1001.util.common.HttpUtils;
+import cn.zm1001.util.common.WebUtils;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
@@ -25,7 +25,7 @@ public class RepeatableRequestWrapper extends HttpServletRequestWrapper {
         request.setCharacterEncoding(StandardCharsets.UTF_8.name());
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 
-        body = HttpUtils.getRequestBody(request).getBytes(StandardCharsets.UTF_8);
+        body = WebUtils.getRequestBody(request).getBytes(StandardCharsets.UTF_8);
     }
 
     @Override
