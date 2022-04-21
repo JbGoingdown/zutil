@@ -15,6 +15,7 @@
         <module>log</module>
         <module>poi</module>
         <module>web</module>
+        <module>wx</module>
     </modules>
 
     <properties>
@@ -27,6 +28,7 @@
         <junit.version>4.13.2</junit.version>
         <servlet-api.version>4.0.1</servlet-api.version>
         <jackson.version>2.13.2.2</jackson.version>
+        <httpmime.version>4.5.13</httpmime.version>
         <kaptcha.version>2.3.2</kaptcha.version>
         <commons-lang3.version>3.12.0</commons-lang3.version>
         <commons-collections4.version>4.4</commons-collections4.version>
@@ -80,6 +82,13 @@
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
+            </dependency>
+
+            <!-- HttpMime -->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpmime</artifactId>
+                <version>${httpmime.version}</version>
             </dependency>
 
             <!-- 验证码 -->
