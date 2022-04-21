@@ -1,11 +1,17 @@
 package cn.zm1001.util.common;
 
+import cn.zm1001.util.common.http.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.MapUtils;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
-import java.util.HashMap;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.Objects;
 
@@ -16,7 +22,7 @@ import java.util.Objects;
 @Slf4j
 public class WebUtils {
     /** IP地址查询 */
-    private static final String IP_URL = "http://whois.pconline.com.cn/ipJson.jsp";
+    private static final String IP_URL = "http://whois.pconline.com.cn/ipJson.jsp?ip=%s&json=true";
     /** 未知地址 */
     public static final String UNKNOWN = "unknown";
     public static final String DEFAULT_IPV6 = "0:0:0:0:0:0:0:1";
@@ -34,15 +40,12 @@ public class WebUtils {
             return "内网IP";
         }
         try {
-            final Map<String, Object> param = new HashMap<>();
-            param.put("ip", ip);
-            param.put("json", true);
-            String rspStr = HttpUtils.sendGet(IP_URL, param, null, Charset.forName("GBK"));
+            String rspStr = HttpUtils.doGet(String.format(IP_URL, ip));
             if (StringUtils.isEmpty(rspStr)) {
                 log.error("#getRealAddressByIP# #rsp# #{}# 获取地理位置异常", ip);
                 return UNKNOWN;
             }
-            Map<String, String> addressMap = JacksonUtil.toMap(rspStr);
+            Map<String, String> addressMap = JacksonUtils.toMap(rspStr);
             String region = MapUtils.getString(addressMap, "pro");
             String city = MapUtils.getString(addressMap, "city");
             return String.format("%s %s", region, city);
@@ -195,6 +198,46 @@ public class WebUtils {
             default:
                 return false;
         }
+    }
+
+    /**
+     * 获取请求体信息
+     *
+     * @param request HTTP请求
+     * @return 请求体信息
+     */
+    public static String getRequestBody(ServletRequest request) {
+        return getRequestBody(request, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * 获取请求体信息
+     *
+     * @param request HTTP请求
+     * @param charset 请求体字符集
+     * @return 请求体信息
+     */
+    public static String getRequestBody(ServletRequest request, Charset charset) {
+        StringBuilder sb = new StringBuilder();
+        BufferedReader reader = null;
+        try (InputStream inputStream = request.getInputStream()) {
+            reader = new BufferedReader(new InputStreamReader(inputStream, charset));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                sb.append(line);
+            }
+        } catch (Exception e) {
+            log.warn("#getBodyContent# #exception# ##", e);
+        } finally {
+            if (null != reader) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    log.warn("#getBodyContent# #exception# ## close fail", e);
+                }
+            }
+        }
+        return sb.toString();
     }
 
 }
