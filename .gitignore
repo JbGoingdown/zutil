@@ -24,7 +24,20 @@ hs_err_pid*
 
 *.git
 *.idea
-*.iml
 target/
-*/target/
-*/*.iml
+*.iml
+common/target/
+common/*.iml
+crypto/target/
+crypto/*.iml
+log/target/
+log/*.iml
+mail/target/
+mail/*.iml
+poi/target/
+poi/*.iml
+web/target/
+web/*.iml
+wx/target/
+wx/*.iml
+
