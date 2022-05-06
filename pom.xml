@@ -37,7 +37,7 @@
         <bcprov-jdk.version>1.70</bcprov-jdk.version>
         <slf.version>1.7.36</slf.version>
         <logback.version>1.2.11</logback.version>
-        <mail.version>1.4.7</mail.version>
+        <mail.version>1.5</mail.version>
         <poi.version>5.2.2</poi.version>
         <spring-boot.version>2.6.6</spring-boot.version>
         <pagehelper.version>5.3.0</pagehelper.version>
@@ -154,10 +154,11 @@
 
             <!-- mail -->
             <dependency>
-                <groupId>javax.mail</groupId>
-                <artifactId>mail</artifactId>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
                 <version>${mail.version}</version>
             </dependency>
+
 
             <!-- excel工具 -->
             <dependency>
