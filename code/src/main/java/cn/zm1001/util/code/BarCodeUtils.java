@@ -18,6 +18,10 @@ public class BarCodeUtils {
     private static final String FORMAT = "image/jpeg";
     private static final int dpi = 100;// 精细度
 
+    private BarCodeUtils() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * 生成条码
      *
