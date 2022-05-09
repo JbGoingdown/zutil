@@ -36,6 +36,10 @@ public class JacksonUtils {
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
     }
 
+    private JacksonUtils() {
+        throw new UnsupportedOperationException();
+    }
+
     /**
      * 对象转Json字符串
      *
