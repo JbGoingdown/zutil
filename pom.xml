@@ -44,6 +44,7 @@
         <pagehelper.version>5.3.0</pagehelper.version>
         <zxing.version>3.5.0</zxing.version>
         <barcode.version>2.1</barcode.version>
+        <xstream.version>1.4.19</xstream.version>
     </properties>
 
     <dependencies>
@@ -199,6 +200,12 @@
                 <version>${barcode.version}</version>
             </dependency>
 
+            <!-- XStream -->
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>${xstream.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 </project>
