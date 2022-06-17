@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -100,11 +101,12 @@ public class ServletUtils {
      * @param string   待渲染的字符串
      */
     public static void write(HttpServletResponse response, String string) {
-        try {
-            response.setStatus(HttpStatus.SUCCESS);
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-            response.getWriter().print(string);
+        response.setStatus(HttpStatus.SUCCESS);
+        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+        try(PrintWriter writer = response.getWriter()) {
+            writer.print(string);
+            writer.flush();
         } catch (IOException e) {
             log.error("#write# ## ## write back msg exception: {}", string, e);
         }
