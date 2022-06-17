@@ -34,6 +34,8 @@ public class JacksonUtils {
         objectMapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
         // 反序列化时，将空字符串转成空对象
         objectMapper.configure(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT, true);
+        // 如果序列化的对象里边还有对象，会报错:java.lang.ClassCastException: java.util.LinkedHashMap cannot be cast to XXX
+        // objectMapper.activateDefaultTyping(objectMapper.getPolymorphicTypeValidator(), DefaultTyping.NON_FINAL, As.PROPERTY);
     }
 
     private JacksonUtils() {
